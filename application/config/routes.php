@@ -70,6 +70,11 @@ $route['user-register'] = 'cms/register';
 $route['log-out'] = 'cms/logout';
 $route['checkout'] = 'cms/checkout';
 $route['checkout-address'] = 'cms/checkAddress';
+$route['successfully'] = 'cms/thankyou';
+$route['order-success'] = 'cms/orderSuccess';
+$route['my-order'] = 'cms/myorder';
+
+
 
 
 

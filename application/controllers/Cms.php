@@ -125,10 +125,19 @@ class Cms extends CI_Controller {
 			'password' => $_POST['password']
 		);
 		$value =  $this->fetch_modal->userRegister($data);
+		if($value=='malerdy'){
+		print_r($value);
+		exit();
+		}
+		else if($value=='ealerdy'){
+		print_r($value);
+		exit();
+		}else{
 		$lid = $_SESSION['logid'] = $value;
 		$arr = explode(' ',trim($data['name']));
 		 $_SESSION['name'] = $arr[0];
 		//echo json_encode($lid);
+		}
 	}
 	public function userlogin(){
 		$data = array(
@@ -170,9 +179,24 @@ class Cms extends CI_Controller {
 			'pin_code' => $_POST['postcode']
 
 		);
-		$value =  $this->fetch_modal->userAddress($data);
+		$value =  $this->fetch_modal->userAddress($data, $_POST['addressid']);
 		echo $value;
 		exit();
+	}
+
+	function thankyou(){
+		$this->load->view('thank-you');
+	}
+	function orderSuccess(){
+		echo $data  = $this->fetch_modal->success_order($_POST['method'], $_POST['billid']);
+		
+	}
+
+	function myorder(){
+		$value =  $this->fetch_modal->fetchOrder();
+		print_r($value);
+		exit();
+		$this->load->view('order');
 	}
 
 }

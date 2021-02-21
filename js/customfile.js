@@ -223,13 +223,26 @@ function register() {
 			data: alldata,
 			success: function (d) {
 				console.log(d);
+				if(d=='malerdy'){
+					$(".mobileRerror").css('visibility', 'visible');
+					setTimeout(function () {
+						$(".mobileRerror").css('visibility', 'hidden');
+					}, 5000);
+				}
+				else if(d=='ealerdy'){
+					$(".emailRerror").css('visibility', 'visible');
+					setTimeout(function () {
+						$(".emailRerror").css('visibility', 'hidden');
+					}, 5000);
+				}else{
 				document.getElementById("rname").value = '';
 				document.getElementById("rmobile").value = '';
 				document.getElementById("remail").value = '';
 				document.getElementById("rpassword").value = '';
 				document.getElementById("rcon_password").value = '';
 				$("#myModal").modal('hide');
-				location.reload();
+				//  location.reload();
+				}
 			}
 		});
 	}
@@ -251,6 +264,20 @@ function isNumber(event) {
 	}
 }
 
+function isNumber1(event) {
+	var billmobile = document.getElementById('bil_mobile');
+	var keycode = event.which;
+	console.log(keycode);
+	if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+		event.preventDefault();
+	}
+	if (billmobile.value.length != 10) {
+
+    } else {
+		event.preventDefault();
+	}
+}
+
 function logout() {
 	$.ajax({
 		method: "get",
@@ -262,17 +289,28 @@ function logout() {
 	});
 }
 
-function order() {
+function saveAddress() {
+	var mob = /^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/;
 	var fname = document.getElementById("bil_name").value;
 	var address = document.getElementById("bil_address").value;
 	var city = document.getElementById("bil_city").value;
 	var postcode = document.getElementById("bil_postcode").value;
 	var mobile = document.getElementById("bil_mobile").value;
+	var addressid = document.getElementById("bil_editid").value;
 	if (!fname) {
 		$("#bil_mess1").css('visibility', 'visible');
 		setTimeout(function () {
 			$("#bil_mess1").css('visibility', 'hidden');
 		}, 5000);
+	}
+	else if (!mobile || mobile.length != 10 || !mob.test(mobile)) {
+		$("#bil_mobile").css('visibility', 'visible');
+		setTimeout(function () {
+			$("#bil_mobile").css('visibility', 'hidden');
+		}, 5000);
+	}
+	else{
+
 	}
 
 
@@ -281,7 +319,8 @@ function order() {
 		address: address,
 		city: city,
 		postcode: postcode,
-		mobile: mobile
+		mobile: mobile,
+		addressid: addressid
 	};
 	console.log(alldata);
 
@@ -291,8 +330,32 @@ function order() {
 		data: alldata,
 		success: function (d) {
 			console.log(d);
+			location.reload();
 		}
 	});
 
 
+}
+
+function order(){
+	var method = $('input[name=optradio]:checked', '#methodpay').val();
+	var billid = $('input[name=billadd]:checked', '#billId').val();
+	$.ajax({
+		url: "http://localhost/vegefoods/order-success", 
+		type: "post",
+		data:{method:method, billid:billid},
+		success: function (d) {
+			console.log(d);
+			if(d)
+			{
+				window.location.href = 'http://localhost/vegefoods/successfully';	
+			}
+			else{
+				alert("Server error 404 not Found!")
+			}
+		}
+	});
+}
+function backtohome(){
+	window.location.href = 'http://localhost/vegefoods/';
 }

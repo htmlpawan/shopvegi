@@ -105,7 +105,8 @@
     						<a class="nav-link dropdown-toggle" id="dropdown04" data-toggle="dropdown"
     							aria-haspopup="true" aria-expanded="false"><?php echo @$_SESSION['name']; ?></a>
     						<div class="dropdown-menu" aria-labelledby="dropdown04">
-    							<a class="dropdown-item" href="shop.html">My Profile</a>
+								<a class="dropdown-item" onclick="myorder()">My Order</a>
+								<a class="dropdown-item" href="shop.html">Profile</a>
     							<a class="dropdown-item" onclick="logout()">Log out</a>
     						</div>
     					</li>
@@ -197,7 +198,7 @@
     								<div class="col-md-1"></div>
     								<div class="col-md-10">
     									<div class="loginModal input-group">
-    										<input class="loginModal" type="text" id="rmobile"
+    										<input class="loginModal" type="number" id="rmobile"
     											onkeypress="return isNumber(event)" required>
     										<span class="loginModal highlight"></span>
     										<span class="loginModal bar"></span>
@@ -250,7 +251,10 @@
     								</div>
     								<div class="col-md-1"></div>
     							</div>
+								<div class='emailRerror'>Sorry...Email-id already registered</div>
+								<div class='mobileRerror'>Sorry...Mobile already taken</div>
     						</div>
+
     						<div class="modal-footer">
     							<div class="log">
     								<input type="button" class="btn btn-success" value="Sign Up" onclick="register()">

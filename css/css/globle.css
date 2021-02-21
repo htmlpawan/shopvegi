@@ -69,6 +69,10 @@
        .mobileView{
           margin: 0 auto !important;
        }
+       .backto{
+        width: 50% !important;
+        margin-top: 20px;
+      }
     }
 
     @media(min-width:768px){
@@ -77,6 +81,10 @@
        } 
        .desktop_view{
            display: block;
+       }
+       .backto{
+         width: 20% !important;
+         margin-top: 20px;
        }
     }
 
@@ -255,10 +263,76 @@
   visibility: hidden;
 }
 
-.passerror{
+.passerror, .emailRerror, .mobileRerror{
   color: red;
   font-size: 13px;
   text-align: center;
   visibility: hidden;
 }
-
+.billing-form{
+  padding-top: 1rem !important;
+  margin-top: 3rem !important;
+}
+.maino{
+    padding: 16px;
+    width: 100%;
+    font-size: 14px;
+    overflow: hidden;
+    transition: box-shadow .1s linear;
+    background-color: #fff;
+    border: 1px solid #dbdbdb;
+    position: relative;
+    cursor: pointer;
+    display: block;
+    box-shadow: 0 0 0 0 rgb(0 0 0 / 15%);
+    margin-bottom: 8px;
+    border-radius: 4px;
+    font-family: sans-serif;
+}
+.maino:hover{
+  box-shadow: 0 1px 12px 2px #dbdbdb;
+}
+.coloro1{
+  color: #212121;
+}
+.coloro{
+  color: #212121;
+  font-weight: 600;
+}
+.delio{
+  font-weight: 400;
+  font-size: 12px;
+}
+.status{
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background-color: none;
+  display: inline-block;
+  margin-right: 4px;
+}
+.orderc{
+  background-color: none;
+  border: 2px solid #26a541;
+}
+.return{
+  background-color: #ff9f00;
+  border: 2px solid #ff9f00;
+}
+.success1{
+  background-color: #26a541;
+  border: 2px solid #26a541;
+}
+.cancel1{
+  background-color: #ff6161;
+  border: 2px solid #ff6161;
+}
+.cencelitem{
+  color: #2874f0;
+  text-transform: uppercase;
+  cursor: pointer;
+  line-height: 24px;
+  width: auto;
+  vertical-align: top;
+  font-weight: 600;
+}

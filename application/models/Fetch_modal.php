@@ -131,7 +131,6 @@ class Fetch_modal extends CI_Model {
 	$total +=  $query->result_array()[$i]['price']*$query->result_array()[$i]['quantity'];
 	}
 	return $total;
-    
 	}
 
 	function quantityUpdateapi($id,$quantity){
@@ -178,13 +177,23 @@ class Fetch_modal extends CI_Model {
 		}
 		return $data;
 		}
-	public function userRegister($data)
-	{	    
-		$run = $this->db->insert('user_regi', $data);
-	    if($run)
-	    return $this->db->insert_id();	
-		else
-		return false; 
+public function userRegister($data)
+{	
+	$queryMobile = $this->db->query("SELECT `mobile` FROM `user_regi` WHERE `mobile`='".$data['mobile']."'");
+	$queryEmail = $this->db->query("SELECT `email` FROM `user_regi` WHERE `email`='".$data['email']."'");
+		if($queryMobile->num_rows()===1){
+			return "malerdy";
+		} 
+		else if($queryEmail->num_rows()===1){
+			return "ealerdy";
+		}
+		else{
+			$run = $this->db->insert('user_regi', $data);
+			if($run)
+			return $this->db->insert_id();	
+			else
+			return false;
+		} 
 	}
 
 	public function userLogin($data)
@@ -202,9 +211,17 @@ class Fetch_modal extends CI_Model {
 			}
 	}
 
-	public function userAddress($data)
+	public function userAddress($data, $editid)
 	{	    
+		if($editid)
+		{
+		$this->db->where('id', $editid);
+		$this->db->set($data);
+		$run = $this->db->update('checkout_address');
+		}
+		else{
 		$run = $this->db->insert('checkout_address', $data);
+		}
 	    if($run)
 	    return true;	
 		else
@@ -215,6 +232,64 @@ class Fetch_modal extends CI_Model {
 	{       $cusId = $_SESSION['logid'];
 		    $query = $this->db->query("SELECT * FROM `checkout_address` WHERE `cus_id`='$cusId'");
 			return $query->result_array();
+	}
+
+	public function success_order($method,$billid){
+		$cusId = $_SESSION['logid'];
+		$query = $this->db->query("SELECT `pro_id`,`pro_name`,`weight`,`price`,`quantity` FROM `cus_add_cart` WHERE `cus_id`='$cusId'");
+		$total=0;
+		$digits = 4;
+        $orderid = rand(pow(10, $digits-1), pow(10, $digits)-1);
+		$data1  = $query->result_array();
+		for($i=0; $i<$query->num_rows(); $i++){
+		$total +=  $query->result_array()[$i]['price']*$query->result_array()[$i]['quantity'];
+		$data1[$i]=array('cust_id'=> $cusId) + $data1[$i];
+		$data1[$i]=array('order_id'=> $orderid) + $data1[$i];
+		}
+
+        $de=0; if($total<150){
+			$de = 40; 
+		}else{
+			$de = 0;
+		}
+
+	$str = '';
+	$length = 12;
+	$charset='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    $count = strlen($charset);
+    while ($length--) {
+        $str .= $charset[mt_rand(0, $count-1)];
+    }
+			$data = array(
+				'transaction_id' => $str,
+				'order_id' => $orderid,
+				'cust_id' => $cusId,
+				'count' => $query->num_rows(),
+				'subtotal' =>$total,
+				'delivery' =>$de,
+				'total' =>$total+$de,
+				'pay_method'=>$method,
+				'address_id'=>$billid
+				);
+		$this->db->insert_batch('order_item', $data1); 
+		$run = $this->db->insert('transaction', $data);
+		$this->db->where('cus_id', $cusId);
+		$this->db->delete('cus_add_cart');
+		if($run)
+	    return true;	
+		else
+		return false;
+	}
+
+	public function fetchOrder(){
+		$cusId = $_SESSION['logid'];
+		$query = $this->db->query("SELECT `order_item`.*, COUNT(*) as 'itemno', `add_product`.`image`  FROM `order_item` INNER join `add_product` on `order_item`.pro_id = `add_product`.`id` WHERE `order_item`.`cust_id`='$cusId' GROUp by `order_item`.`order_id`");
+		$run = $query->result_array();
+		if($run)
+	    return $query->result_array();	
+		else
+		return false;
+
 	}
 
 	

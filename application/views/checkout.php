@@ -15,22 +15,24 @@
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-xl-7 ftco-animate">
-				<form action="#" class="billing-form">
+				<div  class="billing-form">
 					<h3 class="mb-4 billing-heading">Billing Details</h3>
+					<div class="row form-group" style='margin-bottom: 0;'>
+					<form id="billId">
 					<?php foreach($address as $add){ ?>
-					<div class="form-group" style='margin-bottom: 0;'>
 						<div class="col-md-6">
 							<div class="radio">  
-								<label style='display: flex; align-items: center;'><input type="radio" name="optradio" class="mr-2">
+								<label style='display: flex; align-items: baseline;'><input type="radio" name="billadd" class="mr-2" value="<?php echo $add['id']; ?>" checked>
 								<div><b><?php echo $add['name']; ?></b><br>
 								Address: <?php echo $add['address']; ?>, Mumbai-400068 (Maharashtra)<br>
 								Mobile: <?php echo $add['mobile']; ?></div>
 							   </label>
-							   <div class='btn btn-info' onclick="edit('<?php echo $add['name']; ?>','<?php echo $add['address']; ?>','<?php echo $add['mobile']; ?>','<?php echo $add['id']; ?>')">Edit Address</div>
+							   <div class='btn btn-info' style="margin-bottom: 20px;" onclick="edit('<?php echo $add['name']; ?>','<?php echo $add['address']; ?>','<?php echo $add['mobile']; ?>','<?php echo $add['id']; ?>')">Edit Address</div>
 							</div>
 						</div>
-					</div>
 					<?php } ?>
+					</form>
+					</div>
 
 					<div class="row align-items-end" id='add_address'>
 						<div class="col-md-6">
@@ -44,7 +46,7 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="phone">Mobile<span style='color:red;'>*</spna></label>
-								<input type="text" class="form-control" id="bil_mobile" placeholder="Mobile"
+								<input type="number" onkeypress="return isNumber1(event)" class="form-control" id="bil_mobile" placeholder="Mobile"
 									value='<?php echo @$_SESSION['lomobile']; ?>'>
 							</div>
 							<span class="valid" id="bil_mess4">Please enter mobile no</span>
@@ -75,15 +77,16 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="postcodezip">Postcode / ZIP</label>
-								<input type="text" class="form-control" id="bil_postcode" placeholder="" value="400068"
-									readonly>
+								<input type="text" class="form-control" id="bil_postcode" placeholder="" value="400068" readonly>
+								<input type="hidden" id="bil_editid">
 							</div>
 						</div>
+						<div class='btn btn-primary' onclick="saveAddress()">Save Address</div>
 						<div class="w-100"></div>
 
 					</div>
 					
-				</form><!-- END -->
+					</div><!-- END -->
 			</div>
 			<div class="col-xl-5">
 				<div class="row mt-5 pt-3">
@@ -129,22 +132,22 @@
 					<div class="col-md-12">
 						<div class="cart-detail p-3 p-md-4">
 							<div class="billing-heading">Payment Method</div>
+							<form id="methodpay">
 							<div class="form-group" style='margin-bottom: 0;'>
 								<div class="col-md-12">
 									<div class="radio">
-										<label><input type="radio" name="optradio" class="mr-2">Cash Payment</label>
+										<label><input type="radio" name="optradio" value="cash" class="mr-2" checked>Cash Payment</label>
 									</div>
 								</div>
 							</div>
 							<div class="form-group" style='margin-bottom: 0;'>
 								<div class="col-md-12">
 									<div class="radio">
-										<label><input type="radio" name="optradio" class="mr-2"> Direct Google pay or
-											UPI</label>
+										<label><input type="radio" name="optradio" class="mr-2" value="upi"> Direct Google pay or UPI</label>
 									</div>
 								</div>
 							</div>
-
+					</form>
 
 							<div>&nbsp;</div>
 							<div class="btn btn-primary py-3 px-4" onclick="order()">Place an order</div>
@@ -190,6 +193,7 @@
 		document.getElementById("bil_name").value = name;
 	    document.getElementById("bil_address").value = address;
 		document.getElementById("bil_mobile").value = mobile;
+		document.getElementById("bil_editid").value = id;
 	}
 
 </script>

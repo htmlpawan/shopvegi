@@ -125,6 +125,10 @@ $( "#autocomplete" ).autocomplete({ source: function( request, response ) {
   }
  });
 
+ function myorder(){
+  window.location.href = 'http://localhost/vegefoods/my-order';
+ }
+
 </script>
 
   </body>
