@@ -193,10 +193,17 @@ class Cms extends CI_Controller {
 	}
 
 	function myorder(){
-		$value =  $this->fetch_modal->fetchOrder();
-		print_r($value);
-		exit();
-		$this->load->view('order');
+		$data['data'] =  $this->fetch_modal->fetchOrder();
+		// print_r($data);
+		// exit();
+		$this->load->view('order', $data);
+	}
+
+	public function orderlist()
+	{    
+		$data['data'] =  $this->fetch_modal->select_addCart();
+		$data['subtotal'] =  $this->fetch_modal->totalCart();
+		 $this->load->view('order-list', $data);
 	}
 
 }

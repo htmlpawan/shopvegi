@@ -336,3 +336,10 @@
   vertical-align: top;
   font-weight: 600;
 }
+
+.mybastItem .thead-primary tr th{
+  color: #525252 !important;
+}
+.mybastItem .thead-primary{
+background: #ffffff;
+}

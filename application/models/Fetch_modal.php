@@ -283,7 +283,7 @@ public function userRegister($data)
 
 	public function fetchOrder(){
 		$cusId = $_SESSION['logid'];
-		$query = $this->db->query("SELECT `order_item`.*, COUNT(*) as 'itemno', `add_product`.`image`  FROM `order_item` INNER join `add_product` on `order_item`.pro_id = `add_product`.`id` WHERE `order_item`.`cust_id`='$cusId' GROUp by `order_item`.`order_id`");
+		$query = $this->db->query("SELECT `order_item`.`order_id`, `order_item`.`pro_name`, COUNT(*) as 'itemno', `add_product`.`image`, `transaction`.`total`,`transaction`.`order_status`,`transaction`.`insert_time`  FROM `order_item`,`add_product`, `transaction`  WHERE `order_item`.pro_id = `add_product`.`id` and `transaction`.`order_id`=`order_item`.`order_id`  and `order_item`.`cust_id`='$cusId' GROUp by `order_item`.`order_id`");
 		$run = $query->result_array();
 		if($run)
 	    return $query->result_array();	

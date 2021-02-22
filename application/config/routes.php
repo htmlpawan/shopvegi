@@ -73,6 +73,8 @@ $route['checkout-address'] = 'cms/checkAddress';
 $route['successfully'] = 'cms/thankyou';
 $route['order-success'] = 'cms/orderSuccess';
 $route['my-order'] = 'cms/myorder';
+$route['order-list'] = 'cms/orderlist';
+
 
 
 

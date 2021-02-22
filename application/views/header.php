@@ -30,7 +30,7 @@
     	<link rel="stylesheet" href="<?php echo base_url(); ?>css/style.css">
     	<link rel="stylesheet" href="<?php echo base_url(); ?>css/css/globle.css">
     	<link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap1.min.css">
-    	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    	<link rel="stylesheet" href="<?php echo base_url(); ?>css/jquery-ui.css">
 
     	<style>
     		span.price-dc {
