@@ -136,7 +136,10 @@ class Cms extends CI_Controller {
 		$lid = $_SESSION['logid'] = $value;
 		$arr = explode(' ',trim($data['name']));
 		 $_SESSION['name'] = $arr[0];
+		 $_SESSION['lomobile'] = $data['mobile'];
+		$_SESSION['loname'] = $data['name'];
 		//echo json_encode($lid);
+		
 		}
 	}
 	public function userlogin(){
@@ -212,6 +215,42 @@ class Cms extends CI_Controller {
 	public function ordercan(){
 		$orderid = $_POST['orderid'];
 		echo $this->fetch_modal->cancel_order($orderid);
+	}
+
+	public function profile(){
+		$data['data'] = $this->fetch_modal->profileFetch();
+		$data['address'] =  $this->fetch_modal->select_address();
+		$this->load->view('profile', $data);
+	}
+	public function editRegister(){
+		$data=array();
+		if($_POST['name'])
+        $data['name'] = $_POST['name'];
+		if($_POST['mobile'])
+		$data['mobile'] = $_POST['mobile'];
+		if($_POST['email'])
+        $data['email'] = $_POST['email'];
+		if($_POST['password'])
+        $data['password'] = $_POST['password'];
+
+		$value =  $this->fetch_modal->updateRegister($data);
+		if($value=='malerdy'){
+		print_r($value);
+		exit();
+		}
+		else if($value=='ealerdy'){
+		print_r($value);
+		exit();
+		}else{
+		 if(isset($value['mobile']))
+		 $_SESSION['lomobile'] = $value['mobile'];
+         if(isset($value['name'])){
+		$arr = explode(' ',trim($value['name']));
+		$_SESSION['name'] = $arr[0];
+		 $_SESSION['loname'] = $value['name'];
+		 }
+		// echo json_encode($arr);
+		}
 	}
 
 

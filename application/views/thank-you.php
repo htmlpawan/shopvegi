@@ -17,7 +17,7 @@
          <img src="images/check.png" style="width:80px">
          <div class="thank" style="font-size: 52px; font-weight: 600;">Thank you!</div>
          <div style="font-size: 20px; font-weight: 500;">Your submission is received and we will contact you soon.</div>
-         <button class="btn btn-primary backto" onclick="backtohome()">BACK TO HOME</div>
+         <button class="btn btn-primary backto" onclick="backtohome()">My View Order</div>
         </div>
     </section>
 

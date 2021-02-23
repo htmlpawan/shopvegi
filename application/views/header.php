@@ -106,7 +106,7 @@
     							aria-haspopup="true" aria-expanded="false"><?php echo @$_SESSION['name']; ?></a>
     						<div class="dropdown-menu" aria-labelledby="dropdown04">
 								<a class="dropdown-item" onclick="myorder()">My Order</a>
-								<a class="dropdown-item" href="shop.html">Profile</a>
+								<a class="dropdown-item" href="<?php echo base_url(); ?>my-profile">Profile</a>
     							<a class="dropdown-item" onclick="logout()">Log out</a>
     						</div>
     					</li>

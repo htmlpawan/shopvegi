@@ -263,7 +263,7 @@
   visibility: hidden;
 }
 
-.passerror, .emailRerror, .mobileRerror{
+.passerror, .emailRerror, .mobileRerror, .emobileRerror, .eemailRerror{
   color: red;
   font-size: 13px;
   text-align: center;
@@ -275,7 +275,7 @@
 }
 .maino{
     padding: 16px;
-    width: 100%;
+    width: 90%;
     font-size: 14px;
     overflow: hidden;
     transition: box-shadow .1s linear;
@@ -288,9 +288,42 @@
     margin-bottom: 8px;
     border-radius: 4px;
     font-family: sans-serif;
+    margin: 0 auto;
 }
 .maino:hover{
   box-shadow: 0 1px 12px 2px #dbdbdb;
+}
+
+.maino1{padding: 16px;
+    width: 50%;
+    font-size: 14px;
+    overflow: hidden;
+    transition: box-shadow .1s linear;
+    background-color: #fff;
+    position: relative;
+    display: block;
+    box-shadow: 0 0 0 0 rgb(0 0 0 / 15%);
+    margin-bottom: 8px;
+    border-radius: 4px;
+    font-family: sans-serif;
+    margin: 0 auto;
+}
+.maino1:hover{
+  box-shadow: 0 1px 12px 2px #dbdbdb;
+}
+.mainp{
+  display: flex;
+  margin-bottom: 25px;
+}
+.headp{
+  width: 30%;
+  font-weight: 550;
+}
+.titlep{
+  width: 70%;
+}
+.edit_btn{
+  color: #1f5a99!important; background: transparent;position: absolute;right: 0;top: 0;
 }
 .coloro1{
   color: #212121;
@@ -349,5 +382,8 @@ background: #ffffff;
     position: relative;
     margin: unset !important;
     margin-top: 5px;
+   }
+   .maino1{
+     width: 90% !important;
    }
   }

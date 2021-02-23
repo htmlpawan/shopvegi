@@ -36,7 +36,7 @@
     <section class="ftco-section contact-section bg-light">
       <div class="container" style="padding: 20px 0;">
          <div class="thank" style="font-size: 32px; font-weight: 600; text-align: center;">My Order</div>
-         <?php foreach($data as $row){ ?>
+         <?php if($data){ foreach($data as $row){ ?>
          <div class="maino">
          <div class="col-md-2 col-xs-3" style="padding:0" onclick="orderlist(<?php echo $row['order_id']; ?>)">
           <img src="<?php echo base_admin."products/".$row['image'];?>" style="width: 100%;">
@@ -61,17 +61,11 @@
            <div>Your item has been cancelled</div>
          <?php } ?> 
 
-           <!-- 
-
-           <div class="coloro"><span class="status return"></span> Return requested</div>
-           <div style="font-size: 12px;">Shipment is cancelled</div>
-
-           <div class="coloro"><span class="status cancel1"></span> Cancelled</div>
-           <div>Your item has been cancelled</div> -->
-
          </div>
         </div>
-        <?php } ?>
+        <?php } }else{ ?>
+          <div class="maino text-center">Your Order Is Currently Empty!</div>
+        <?php }?>
          <!-- Modal -->
 	<div class="myModal1 modal fade" id="myModal1" role="dialog" data-keyboard="false" data-backdrop="static">
 		<div class="modal-dialog">

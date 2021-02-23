@@ -321,6 +321,39 @@ public function userRegister($data)
 		return false;
 	}
 
+	public function profileFetch(){
+		$cusId = $_SESSION['logid'];
+		$run = $this->db->query("SELECT * FROM `user_regi` WHERE `id`='$cusId'");
+		if($run)
+	    return $run->result_array()[0];		
+		else
+		return false;
+	}
+
+
+public function updateRegister($data)
+{	$cusId = $_SESSION['logid'];
+	if(isset($_SESSION['logid'])){
+	$queryMobile = $this->db->query("SELECT `mobile` FROM `user_regi` WHERE `mobile`='".$data['mobile']."' and `id`!='$cusId'");
+	$queryEmail = $this->db->query("SELECT `email` FROM `user_regi` WHERE `email`='".$data['email']."' and `id`!='$cusId'");
+		if($queryMobile->num_rows()===1){
+			return "malerdy";
+		} 
+		else if($queryEmail->num_rows()===1){
+			return "ealerdy";
+		}
+		else{
+			$this->db->where('id', $cusId);
+			$run =  $this->db->update('user_regi', $data);;
+			if($run)
+			return $data;	
+			else
+			return false;
+		} 
+	 }
+	}
+
 	
 }
+
 ?>

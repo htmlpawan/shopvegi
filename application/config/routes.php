@@ -75,6 +75,9 @@ $route['order-success'] = 'cms/orderSuccess';
 $route['my-order'] = 'cms/myorder';
 $route['order-list'] = 'cms/orderlist';
 $route['ordercancel'] = 'cms/ordercan';
+$route['my-profile'] = 'cms/profile';
+$route['edit-register'] = 'cms/editRegister';
+
 
 
 

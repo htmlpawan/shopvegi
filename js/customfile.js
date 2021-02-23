@@ -241,7 +241,7 @@ function register() {
 				document.getElementById("rpassword").value = '';
 				document.getElementById("rcon_password").value = '';
 				$("#myModal").modal('hide');
-				//  location.reload();
+				location.reload();
 				}
 			}
 		});
@@ -357,7 +357,7 @@ function order(){
 	});
 }
 function backtohome(){
-	window.location.href = 'http://localhost/vegefoods/';
+	window.location.href = 'http://localhost/vegefoods/my-order';
 }
 function orderlist(id){
 	window.location.href = 'http://localhost/vegefoods/order-list?id='+id;
@@ -385,5 +385,81 @@ function confirm(){
 			}
 		}
 	});
+
+}
+var oldpass =''; 
+function editprofile(oldpa){
+	oldpass = oldpa;
+	$("#editmyModal").modal("show");
+}
+
+function editRegister() {
+	var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+	var mob = /^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/;
+	var name = document.getElementById("ername").value;
+	var mobile = document.getElementById("ermobile").value;
+	var email = document.getElementById("eremail").value;
+	var password = document.getElementById("erpassword").value;
+	var con_password = document.getElementById("ercon_password").value;
+	if(mobile){
+	 if (mobile.length != 10 || !mob.test(mobile)) {
+		$("#emess2").css('visibility', 'visible');
+		setTimeout(function () {
+			$("#emess2").css('visibility', 'hidden');
+		}, 5000);
+		return false;
+	}} 
+	if(email){
+	if (reg.test(email)) {
+		$("#emess3").css('visibility', 'visible');
+		setTimeout(function () {
+			$("#emess3").css('visibility', 'hidden');
+		}, 5000);
+		return false;
+	}} 
+	if (password != oldpass) {
+		$("#emess4").css('visibility', 'visible');
+		setTimeout(function () {
+			$("#emess4").css('visibility', 'hidden');
+		}, 5000);
+	}else {
+		var alldata = {
+			name: name,
+			mobile: mobile,
+			email: email,
+			password: con_password
+		}
+		console.log(alldata);
+
+		$.ajax({
+			url: "http://localhost/vegefoods/edit-register",
+			type: "post",
+			data: alldata,
+			success: function (d) {
+				console.log(d);
+				if(d=='malerdy'){
+					$(".emobileRerror").css('visibility', 'visible');
+					setTimeout(function () {
+						$(".emobileRerror").css('visibility', 'hidden');
+					}, 5000);
+				}
+				else if(d=='ealerdy'){
+					$(".eemailRerror").css('visibility', 'visible');
+					setTimeout(function () {
+						$(".eemailRerror").css('visibility', 'hidden');
+					}, 5000);
+				}else{
+				document.getElementById("ername").value = '';
+				document.getElementById("ermobile").value = '';
+				document.getElementById("eremail").value = '';
+				document.getElementById("erpassword").value = '';
+				document.getElementById("ercon_password").value = '';
+				$("#editmyModal").modal('hide');
+				location.reload();
+				}
+			}
+		});
+	}
+
 
 }
