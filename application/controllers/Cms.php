@@ -201,9 +201,18 @@ class Cms extends CI_Controller {
 
 	public function orderlist()
 	{    
-		$data['data'] =  $this->fetch_modal->select_addCart();
-		$data['subtotal'] =  $this->fetch_modal->totalCart();
+		$orderid = $_GET['id'];
+		$data['data'] =  $this->fetch_modal->select_order($orderid);
+		// print_r($data);
+		// exit();
+		$data['subtotal'] =  $this->fetch_modal->totalOrderlist($orderid);
 		 $this->load->view('order-list', $data);
 	}
+
+	public function ordercan(){
+		$orderid = $_POST['orderid'];
+		echo $this->fetch_modal->cancel_order($orderid);
+	}
+
 
 }

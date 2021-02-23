@@ -1,5 +1,5 @@
 <?php include('header.php'); ?>
-    
+
 
     <section class="ftco-section ftco-cart">
     <div class="thank" style="padding: 20px 0; font-size: 32px; font-weight: 600; text-align: center;">Basket Items</div>
@@ -20,7 +20,7 @@
 						    </thead>
 						    <tbody>
                             <?php $i= 1; foreach($data as $row){ ?>
-						      <tr class="text-center" id="closeid<?php echo $row['id']; ?>">
+						      <tr class="text-center">
 						        
 						        <td class="image-prod"><div class="img" style="background-image:url(<?php echo base_admin."products/".$row['img'];?>);"></div></td>
 						        
@@ -35,7 +35,7 @@
 						        <td>
                                 <?php echo $row['quantity']; ?>
 					          </td>
-						        <td id="totalrow<?php echo $row['id']; ?>">&#8377; <?php echo $row['price']*$row['quantity']; ?></td>
+						        <td>&#8377; <?php echo $row['price']*$row['quantity']; ?></td>
 						      </tr><!-- END TR-->
 							<?php } ?>
 						    </tbody>
@@ -46,7 +46,7 @@
 		</div>
            <div class="container mobile_view">
 		   <?php $i= 1; foreach($data as $row){ ?>
-			<div class="row" id="closeid<?php echo $row['id']; ?>" style="border-bottom: solid 0.5px #ccc; padding: 7px 7px 12px 7px; font-family: sans-serif;">
+			<div class="row" style="border-bottom: solid 0.5px #ccc; padding: 7px 7px 12px 7px; font-family: sans-serif;">
 				<div class="col-xs-4" style="align-items: center;display: flex;">
 				<img class="img-fluid" src="<?php echo base_admin."products/".$row['img'];?>">
 				</div>
@@ -59,7 +59,7 @@
 						<div class="input-group" style="width: 80%;">
                         Quantity: <?php echo $row['quantity']; ?>
 						   </div>
-						   <div id="totalrow<?php echo $row['id']; ?>" style="font-size: 18px;font-weight: 500;">&#8377; <?php echo $row['price']*$row['quantity']; ?>
+						   <div style="font-size: 18px;font-weight: 500;">&#8377; <?php echo $row['price']*$row['quantity']; ?>
 							</div>
 						</div>
 				</div>
@@ -86,6 +86,8 @@
     				</div>
     			</div>
     		</div>
+
+    
 
 	</section>
 

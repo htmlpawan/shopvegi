@@ -359,3 +359,31 @@ function order(){
 function backtohome(){
 	window.location.href = 'http://localhost/vegefoods/';
 }
+function orderlist(id){
+	window.location.href = 'http://localhost/vegefoods/order-list?id='+id;
+}
+var oid=0;
+function cancelItem(ido){
+	oid=ido;
+	$("#myModal1").modal('show');
+}
+function confirm(){
+	console.log(oid);
+	$.ajax({
+		url: "http://localhost/vegefoods/ordercancel", 
+		type: "post",
+		data:{orderid:oid},
+		success: function (d) {
+			console.log(d);
+			if(d)
+			{
+			 location.reload();
+			//window.location.href = 'http://localhost/vegefoods/successfully';	
+			}
+			else{
+				alert("Server error 404 not Found!")
+			}
+		}
+	});
+
+}

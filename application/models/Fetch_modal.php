@@ -283,13 +283,42 @@ public function userRegister($data)
 
 	public function fetchOrder(){
 		$cusId = $_SESSION['logid'];
-		$query = $this->db->query("SELECT `order_item`.`order_id`, `order_item`.`pro_name`, COUNT(*) as 'itemno', `add_product`.`image`, `transaction`.`total`,`transaction`.`order_status`,`transaction`.`insert_time`  FROM `order_item`,`add_product`, `transaction`  WHERE `order_item`.pro_id = `add_product`.`id` and `transaction`.`order_id`=`order_item`.`order_id`  and `order_item`.`cust_id`='$cusId' GROUp by `order_item`.`order_id`");
+		$query = $this->db->query("SELECT `order_item`.`order_id`, `order_item`.`pro_name`, COUNT(*) as 'itemno', `add_product`.`image`, `transaction`.`total`,`transaction`.`order_status`,`transaction`.`insert_time`  FROM `order_item`,`add_product`, `transaction`  WHERE `order_item`.pro_id = `add_product`.`id` and `transaction`.`order_id`=`order_item`.`order_id`  and `order_item`.`cust_id`='$cusId' GROUp by `order_item`.`order_id` ORDER BY `transaction`.`t_id` DESC");
 		$run = $query->result_array();
 		if($run)
 	    return $query->result_array();	
 		else
 		return false;
 
+	}
+
+	public function totalOrderlist($id){       
+		$cusId = $_SESSION['logid'];
+		$query = $this->db->query("SELECT `price`,`quantity` FROM `order_item` WHERE `cust_id`='$cusId' and `order_id`='$id'");
+		$total=0;
+		for($i=0; $i<$query->num_rows(); $i++){
+		$total +=  $query->result_array()[$i]['price']*$query->result_array()[$i]['quantity'];
+		}
+		return $total;
+		}
+
+	public function select_order($id){
+		$cusId = $_SESSION['logid'];
+		$query = $this->db->query("SELECT `order_item`.`order_id`,`order_item`.`pro_name`, `order_item`.`weight`,`order_item`.`quantity`, `order_item`.`price`, `add_product`.image as `img` FROM `order_item`, `add_product` WHERE `order_item`.`order_id`='$id' and `order_item`.`pro_id`=`add_product`.`id` and `order_item`.`cust_id`='$cusId'");
+		$run = $query->result_array();
+		if($run)
+	    return $query->result_array();	
+		else
+		return false;
+	}
+
+	public function cancel_order($oid){
+		$cusId = $_SESSION['logid'];
+		$run = $this->db->query("UPDATE `transaction` SET `order_status`='1' WHERE `cust_id`='$cusId' and `order_id`='$oid'");
+		if($run)
+	    return true;	
+		else
+		return false;
 	}
 
 	

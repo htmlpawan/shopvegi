@@ -343,3 +343,11 @@
 .mybastItem .thead-primary{
 background: #ffffff;
 }
+
+@media(max-width: 768px) {
+  .searchtop{
+    position: relative;
+    margin: unset !important;
+    margin-top: 5px;
+   }
+  }
